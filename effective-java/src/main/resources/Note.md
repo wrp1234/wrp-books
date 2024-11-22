@@ -107,3 +107,81 @@ public class NutritionFacts {
 
 - 需要创建Builder类
 
+### Tip3 私有构造器或枚举类强化Singleton
+
+#### 三种方式实现Singleton
+
+- 暴露字段
+  - 易懂、简单
+
+```java
+public class Elvis {
+
+    public static final Elvis INSTANCE = new Elvis();
+
+    private Elvis() {}
+
+    public void leaveTheBuilding() {}
+}
+```
+
+- 提供方法返回对象
+  - 容易改变方法是否支持单例
+  - 如果需要可以实现泛型单例工厂 ？？？
+  - 可以作为方法引用
+
+```java
+public class Elvis2 {
+
+    private static final Elvis2 INSTANCE = new Elvis2();
+
+    private Elvis2() {}
+
+    public static Elvis2 getInstance() {
+        return INSTANCE;
+    }
+
+    public void leaveTheBuilding() {}
+}
+```
+
+- 枚举类
+  - 简洁
+  - 无序列化问题
+
+```java
+public enum Elvis3 {
+    INSTANCE;
+
+    public void leaveTheBuilding(){}
+}
+```
+
+#### 优点
+
+- 私有化构造器，不能被实例化。
+
+- 枚举类实现，是单例的最佳方法
+
+#### 缺点
+
+- 私有构造器可以通过反射创建对象，破坏单例
+
+### Tip4 私有构造器强化不可实例化
+
+```java
+public class UtilityClass {
+    // suppress default constructor for noninstantiability
+    private UtilityClass() {
+        throw new AssertionError();
+    }
+}
+```
+
+#### 优点
+
+- 强调类不能进行实例化
+
+#### 缺点
+
+- 不能子类化，即其子类不能创建实例
