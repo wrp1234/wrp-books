@@ -120,7 +120,6 @@ public class BasicThreadPool implements ThreadPool {
 
             isShutdown = true;
             threadQueue.forEach(task -> {
-//                task.internalTask.stop();
                 task.thread.interrupt();
             });
             managerThread.interrupt();
