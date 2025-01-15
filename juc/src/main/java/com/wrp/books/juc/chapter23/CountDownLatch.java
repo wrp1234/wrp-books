@@ -7,8 +7,15 @@ import java.util.concurrent.TimeUnit;
  * @since 2025年01月15日 19:02
  **/
 public class CountDownLatch extends Latch{
+    private Runnable runnable;
+
     public CountDownLatch(int limit) {
         super(limit);
+    }
+
+    public CountDownLatch(int limit, Runnable runnable) {
+        super(limit);
+        this.runnable = runnable;
     }
 
     @Override
@@ -17,6 +24,9 @@ public class CountDownLatch extends Latch{
             while (limit > 0) {
                 this.wait();
             }
+        }
+        if(null != runnable) {
+            runnable.run();
         }
     }
 
@@ -53,6 +63,9 @@ public class CountDownLatch extends Latch{
                 this.wait(TimeUnit.NANOSECONDS.toMillis(remaining));
                 remaining = endNanos - System.nanoTime();
             }
+        }
+        if(null != runnable) {
+            runnable.run();
         }
     }
 }
