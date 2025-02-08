@@ -18,6 +18,7 @@
     <modules>
         <module>effective-java</module>
         <module>juc</module>
+        <module>interview</module>
     </modules>
 
     <properties>
