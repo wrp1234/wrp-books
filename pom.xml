@@ -19,6 +19,7 @@
         <module>effective-java</module>
         <module>juc</module>
         <module>interview</module>
+        <module>clean-code</module>
     </modules>
 
     <properties>
